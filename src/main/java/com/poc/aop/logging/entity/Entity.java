@@ -1,5 +1,6 @@
 package com.poc.aop.logging.entity;
 
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -16,6 +17,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Entity {
     @Id
+    @GeneratedValue
     int id;
     String description;
 }

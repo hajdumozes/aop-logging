@@ -1,6 +1,7 @@
 package com.poc.aop.logging.service;
 
 import com.poc.aop.logging.entity.Entity;
+import com.poc.aop.logging.exception.EntityNotFoundException;
 import com.poc.aop.logging.repository.EntityRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,10 @@ public class EntityService {
     }
 
     public void delete(Integer id) {
-        repository.findById(id).ifPresent(repository::delete);
+        repository.findById(id).ifPresentOrElse(repository::delete, this::throwEntityNotFoundException);
+    }
+
+    private void throwEntityNotFoundException() {
+        throw new EntityNotFoundException();
     }
 }

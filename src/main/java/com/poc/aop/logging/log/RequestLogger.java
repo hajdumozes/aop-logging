@@ -38,7 +38,7 @@ public class RequestLogger {
                 joinPoint.getSignature().getName(), response.getStatusCode(), response.getBody());
     }
 
-    @AfterThrowing(pointcut = "exceptionPointcut()", throwing = "exception")
+    @AfterThrowing(pointcut = "servicePointcut()", throwing = "exception")
     public void logException(JoinPoint joinPoint, Exception exception) {
         log.info("Exception: in {}.{}() with exception type = {} and message = {}", joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(), exception.getClass(), exception.getMessage());

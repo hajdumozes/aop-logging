@@ -2,6 +2,7 @@ package com.poc.aop.logging.service;
 
 import com.poc.aop.logging.entity.Entity;
 import com.poc.aop.logging.exception.EntityNotFoundException;
+import com.poc.aop.logging.log.LogExecutionTime;
 import com.poc.aop.logging.repository.EntityRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class EntityService {
     EntityRepository repository;
 
+    @LogExecutionTime
     public List<Entity> findAll() {
         return repository.findAll();
     }

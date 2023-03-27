@@ -3,7 +3,6 @@ package com.poc.aop.logging.log;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -15,14 +14,9 @@ import java.util.Arrays;
 @Aspect
 @Component
 @Slf4j
-public class RequestLogger {
+public class WebLogger {
     @Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
     public void requestPointcut() {
-        // Method is empty as this is just a Pointcut, the implementations are in the advices.
-    }
-
-    @Pointcut("within(com.poc.aop.logging.service.*)")
-    public void servicePointcut() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }
 
@@ -36,11 +30,5 @@ public class RequestLogger {
     public void logAfter(JoinPoint joinPoint, ResponseEntity<?> response) {
         log.info("Exit: {}.{}() with status code = {} and body = {}", joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(), response.getStatusCode(), response.getBody());
-    }
-
-    @AfterThrowing(pointcut = "servicePointcut()", throwing = "exception")
-    public void logException(JoinPoint joinPoint, Exception exception) {
-        log.info("Exception: in {}.{}() with exception type = {} and message = {}", joinPoint.getSignature().getDeclaringTypeName(),
-                joinPoint.getSignature().getName(), exception.getClass(), exception.getMessage());
     }
 }

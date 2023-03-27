@@ -41,16 +41,19 @@ public class ServiceLogger {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }
 
+    //     @AfterThrowing triggers the given type of exception being thrown in methods related to the pointcut
     @AfterThrowing(pointcut = "servicePointcut()", throwing = "exception")
     public void logException(JoinPoint joinPoint, Exception exception) {
         log.info("Exception: in {}.{}() with exception type = {} and message = {}", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName(), exception.getClass(), exception.getMessage());
     }
 
+    //    @After triggers after the end of the related methods
     @After("voidServiceMethods()")
     public void logDataChange(JoinPoint joinPoint) {
         log.info("Repository data change happened due to {}.{} with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
     }
 
+    //    @After triggers after the end of the related methods
     @After("operationWithEntity() || operationResultingEntity()")
     public void entityOperations(JoinPoint joinPoint) {
         log.info("Entity operation: {}.{} with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));

@@ -13,11 +13,13 @@ import org.springframework.util.StopWatch;
 @Slf4j
 public class ExecutionTimeLogger {
 
+    //     annotation is used to mark methods which have the following annotations
     @Pointcut("@annotation(com.poc.aop.logging.log.LogExecutionTime)")
     public void logExecutionTimeAnnotations() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }
 
+    //    @Around is an advice type, which ensures that an advice can run before and after the method execution
     @Around("logExecutionTimeAnnotations()")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         final StopWatch stopWatch = new StopWatch();

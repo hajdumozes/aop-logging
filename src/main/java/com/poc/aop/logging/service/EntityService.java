@@ -3,44 +3,23 @@ package com.poc.aop.logging.service;
 import com.poc.aop.logging.entity.Entity;
 import com.poc.aop.logging.exception.EntityNotFoundException;
 import com.poc.aop.logging.log.LogExecutionTime;
-import com.poc.aop.logging.repository.EntityRepository;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class EntityService {
-    EntityRepository repository;
-
+public interface EntityService {
     @LogExecutionTime
-    public List<Entity> findAll() {
-        return repository.findAll();
-    }
+    List<Entity> findAll();
 
-    public Optional<Entity> findById(Integer id) {
-        return repository.findById(id);
-    }
+    Optional<Entity> findById(Integer id);
 
-    public void persist(Entity entity) {
-        repository.save(entity);
-    }
+    void persist(Entity entity);
 
-    public void update(Integer id, Entity entity) {
-        repository.findById(id)
-                .ifPresent(existing -> repository.save(entity));
-    }
+    void update(Entity entity, Integer id);
 
-    public void delete(Integer id) {
-        repository.findById(id).ifPresentOrElse(repository::delete, this::throwEntityNotFoundException);
-    }
+    void delete(Integer id);
 
-    private void throwEntityNotFoundException() {
+    default void throwEntityNotFoundException() {
         throw new EntityNotFoundException();
     }
 }

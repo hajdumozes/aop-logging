@@ -29,7 +29,7 @@ public class ServiceLogger {
 
     //     execution is used to match a joinPoint method’s signature.
     //    (Entity) = one method parameter, which is of type Entity
-    @Pointcut("execution(public * com.poc.aop.logging.service.EntityService.*(com.poc.aop.logging.entity.Entity))")
+    @Pointcut("execution(public * com.poc.aop.logging.service.EntityService.*(com.poc.aop.logging.entity.Entity,..))")
     public void operationWithEntity() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }

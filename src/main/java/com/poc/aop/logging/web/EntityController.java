@@ -3,7 +3,7 @@ package com.poc.aop.logging.web;
 import com.poc.aop.logging.dto.EntityDto;
 import com.poc.aop.logging.entity.Entity;
 import com.poc.aop.logging.mapper.EntityMapper;
-import com.poc.aop.logging.service.EntityService;
+import com.poc.aop.logging.service.EntityServiceImpl;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EntityController {
-    EntityService service;
+    EntityServiceImpl service;
     EntityMapper entityMapper;
 
     @GetMapping
@@ -50,7 +50,7 @@ public class EntityController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody EntityDto dto) {
-        service.update(id, entityMapper.toEntity(dto));
+        service.update(entityMapper.toEntity(dto), id);
         return ResponseEntity.ok().build();
     }
 

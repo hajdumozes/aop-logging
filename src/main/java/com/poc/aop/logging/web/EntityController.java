@@ -3,7 +3,7 @@ package com.poc.aop.logging.web;
 import com.poc.aop.logging.dto.EntityDto;
 import com.poc.aop.logging.entity.Entity;
 import com.poc.aop.logging.mapper.EntityMapper;
-import com.poc.aop.logging.service.EntityServiceImpl;
+import com.poc.aop.logging.service.EntityService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EntityController {
-    EntityServiceImpl service;
+    EntityService service;
     EntityMapper entityMapper;
 
     @GetMapping
